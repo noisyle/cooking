@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.noisyle.crowbar.core.base.AbstractDao;
+import com.noisyle.crowbar.core.base.BaseHibernateRepository;
 import com.noisyle.crowbar.model.User;
 
 @Repository
-public class UserRepository extends AbstractDao<User, Long> {
+public class UserRepository extends BaseHibernateRepository<User, Long> {
 
     public List<User> list() {
         List<User> list = getAll();

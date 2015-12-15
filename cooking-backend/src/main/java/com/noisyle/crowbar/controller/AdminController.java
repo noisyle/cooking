@@ -115,8 +115,7 @@ public class AdminController extends BaseController {
 				return AdminConstant.Role.get((String) value).getText();
 			}
 		});
-//		return userRepository.getFormatedPage(pageParam);
-		return userRepository.getAll();
+		return userRepository.getFormatedPage(pageParam);
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)

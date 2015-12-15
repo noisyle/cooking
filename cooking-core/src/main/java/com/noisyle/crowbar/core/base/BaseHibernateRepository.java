@@ -19,6 +19,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
+import com.noisyle.crowbar.core.datatables.FormatHandler;
+import com.noisyle.crowbar.core.datatables.FormatedPage;
+import com.noisyle.crowbar.core.datatables.Page;
+import com.noisyle.crowbar.core.datatables.PageParam;
 import com.noisyle.crowbar.core.util.ReflectionUtils;
 
 /**
@@ -32,7 +36,7 @@ import com.noisyle.crowbar.core.util.ReflectionUtils;
  * @param <PK>
  *            主键类型
  */
-public abstract class AbstractDao<T, PK extends Serializable> {
+public abstract class BaseHibernateRepository<T extends BaseModel, PK extends Serializable> {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -44,7 +48,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
 	 * 用于Dao层子类使用的构造函数. 通过子类的泛型定义取得对象类型Class. eg. public class UserDao extends
 	 * SimpleHibernateDao<User, Long>
 	 */
-	public AbstractDao() {
+	public BaseHibernateRepository() {
 		this.entityClass = ReflectionUtils.getSuperClassGenricType(getClass());
 	}
 
@@ -52,7 +56,7 @@ public abstract class AbstractDao<T, PK extends Serializable> {
 	 * 用于用于省略Dao层, 在Service层直接使用通用SimpleHibernateDao的构造函数. 在构造函数中定义对象类型Class.
 	 * eg. SimpleHibernateDao<User, Long> userDao = new SimpleHibernateDao<User, Long>(sessionFactory, User.class);
 	 */
-	public AbstractDao(final SessionFactory sessionFactory, final Class<T> entityClass) {
+	public BaseHibernateRepository(final SessionFactory sessionFactory, final Class<T> entityClass) {
 		this.sessionFactory = sessionFactory;
 		this.entityClass = entityClass;
 	}
@@ -346,5 +350,55 @@ public abstract class AbstractDao<T, PK extends Serializable> {
 	public String getIdName() {
 		ClassMetadata meta = getSessionFactory().getClassMetadata(entityClass);
 		return meta.getIdentifierPropertyName();
+	}
+	
+	public Page<T> getPage(PageParam pageParam) {
+		Criteria query = getSession().createCriteria(entityClass);
+		// 处理过滤查询条件
+//		if(pageParam.getSearch() !=null && pageParam.getSearch().getValue()!=null && !"".equals(pageParam.getSearch().getValue().trim())){
+//			List<Criteria> criterias = new LinkedList<Criteria>();
+//			for(int i=0;i<pageParam.getColumns().length;i++){
+//				if(pageParam.getColumns()[i].getData()!=null && pageParam.getColumns()[i].getData().indexOf(".")<0){
+//					criterias.add(Criteria.where(pageParam.getColumns()[i].getData())
+//						.regex(pageParam.getSearch().getValue()));
+//				}
+//			}
+//			query.addCriteria(new Criteria().orOperator(criterias.toArray(new Criteria[criterias.size()])));
+//		}
+//		
+//		// 处理排序
+//		if(pageParam.getOrder()!=null && pageParam.getOrder().length>0){
+//			Sort.Order[] orders = new Sort.Order[pageParam.getOrder().length];
+//			for(int i=0;i<pageParam.getOrder().length;i++){
+//				orders[i] = new Sort.Order(
+//					Sort.Direction.fromString(pageParam.getOrder()[i].getDir()),
+//					pageParam.getColumns()[pageParam.getOrder()[i].getColumn()].getData()
+//				);
+//			}
+//			query.with(new Sort(orders));
+//		}
+		return getPage(pageParam, query);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Page<T> getPage(PageParam pageParam, Criteria query) {
+		// 进行分页查询
+		long total = getAll().size();
+		int skip = pageParam.getStart();
+		int limit = pageParam.getLength();
+		query.setFirstResult(skip);//设置起始行
+		query.setMaxResults(limit);//每页条数
+		List<T> data = (List<T>) query.list(); //得到每页的数据
+		Page<T> Page = new Page<T>();
+		Page.setData(data);
+		Page.setRecordsTotal(total);
+		Page.setRecordsFiltered(total);
+		Page.setDraw(pageParam.getDraw());
+		return Page;
+	}
+	
+	public FormatedPage getFormatedPage(PageParam pageParam) {
+		// 分页查询结果格式化
+		return FormatHandler.handle(getPage(pageParam), pageParam);
 	}
 }
