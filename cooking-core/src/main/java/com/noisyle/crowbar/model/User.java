@@ -1,8 +1,11 @@
 package com.noisyle.crowbar.model;
 
+import javax.persistence.Entity;
+
 import com.noisyle.crowbar.core.base.BaseModel;
 import com.noisyle.crowbar.core.base.IUser;
 
+@Entity(name="tp_new_user")
 public class User extends BaseModel implements IUser {
 
 	private String loginname;

@@ -17,7 +17,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.noisyle.crowbar.core.util.CryptoEnvWrapper;
@@ -27,7 +26,6 @@ import com.noisyle.crowbar.core.util.SpringContextHolder;
 @PropertySource("classpath:/spring-context.properties")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableTransactionManagement
-@EnableScheduling
 @ComponentScan(basePackages = { "com.noisyle.crowbar.repository", "com.noisyle.crowbar.service" })
 public class AppConfig {
 

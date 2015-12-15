@@ -15,8 +15,8 @@ public class UserRepository extends AbstractDao<User, Long> {
         return list;
     }
 
-    public User getUserByLoginName(String loginName) {
-        User user = findUniqueBy("loginName", loginName);
+    public User getUserByLoginname(String loginname) {
+        User user = findUniqueBy("loginname", loginname);
         return user;
     }
 

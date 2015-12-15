@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.orm.hibernate4.support.OpenSessionInViewInterceptor;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ViewResolver;
@@ -50,7 +49,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
 		registry.addInterceptor(webHandlerInterceptor());
-//		registry.addInterceptor(openSessionInViewInterceptor());
 	}
 
 	@Override
@@ -95,11 +93,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		return new WebHandlerInterceptor();
 	}
 	
-	@Bean
-	public OpenSessionInViewInterceptor openSessionInViewInterceptor() {
-		return new OpenSessionInViewInterceptor();
-	}
-
 	@Bean
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();

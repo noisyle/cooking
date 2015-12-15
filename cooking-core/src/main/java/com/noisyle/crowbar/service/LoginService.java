@@ -22,7 +22,7 @@ public class LoginService {
     }
     
 	public User getUserByLoginName(String loginname) {
-		return userRepository.getUserByLoginName(loginname);
+		return userRepository.getUserByLoginname(loginname);
 	}
 	
 	public void initUserContext(IUser user) {
