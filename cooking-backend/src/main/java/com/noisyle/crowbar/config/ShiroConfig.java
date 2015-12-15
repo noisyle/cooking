@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import com.noisyle.crowbar.core.auth.MongoDBUserRealm;
-import com.noisyle.crowbar.core.auth.RememberMeAuthenticationFilter;
+import com.noisyle.crowbar.auth.MongoDBUserRealm;
+import com.noisyle.crowbar.auth.RememberMeAuthenticationFilter;
 
 @Configuration
 public class ShiroConfig {

@@ -1,4 +1,4 @@
-package com.noisyle.crowbar.core.auth;
+package com.noisyle.crowbar.auth;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -18,13 +18,13 @@ import com.noisyle.crowbar.constant.AdminConstant;
 import com.noisyle.crowbar.core.base.IUser;
 import com.noisyle.crowbar.core.vo.UserContext;
 import com.noisyle.crowbar.model.User;
-import com.noisyle.crowbar.service.LoginService;
+import com.noisyle.crowbar.service.UserService;
 
 public class MongoDBUserRealm extends AuthorizingRealm {
 	final protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 
 	@Override
 	public String getName() {
@@ -43,9 +43,9 @@ public class MongoDBUserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		IUser user = loginService.getUserByLoginName(token.getUsername());
+		IUser user = userService.getUserByLoginName(token.getUsername());
 		if (user != null) {
-			loginService.initUserContext(user);
+			userService.initUserContext(user);
 			return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), getName());
 		} else {
 			return null;

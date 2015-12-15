@@ -1,13 +1,17 @@
 package com.noisyle.crowbar.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.noisyle.crowbar.core.base.BaseModel;
 import com.noisyle.crowbar.core.base.IUser;
 
-@Entity(name="tp_new_user")
+@Entity
+@Table(name="tp_new_user")
 public class User extends BaseModel implements IUser {
 
+	private static final long serialVersionUID = 3975453762847879353L;
+	
 	private String loginname;
 	private String username;
 	private String password;

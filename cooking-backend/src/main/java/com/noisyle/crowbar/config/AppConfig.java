@@ -1,6 +1,5 @@
 package com.noisyle.crowbar.config;
 
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -51,26 +50,26 @@ public class AppConfig {
 	}
 
 	@Bean
+	@Autowired
 	@DependsOn({ "dataSource" })
-	public SessionFactory sessionFactory() throws IOException {
+	public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-		sessionFactoryBean.setDataSource(dataSource());
+		sessionFactoryBean.setDataSource(dataSource);
 		sessionFactoryBean.setPackagesToScan("com.noisyle.crowbar.model");
 		Properties p = new Properties();
 		p.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		p.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 		p.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
 		sessionFactoryBean.setHibernateProperties(p);
-		sessionFactoryBean.afterPropertiesSet();
-		return sessionFactoryBean.getObject();
+		return sessionFactoryBean;
 	}
 
 	@Bean
+	@Autowired
 	@DependsOn({ "sessionFactory" })
-	public HibernateTransactionManager transactionManager() throws IOException {
-		HibernateTransactionManager htm = new HibernateTransactionManager();
-		htm.setSessionFactory(sessionFactory());
-		return htm;
+	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+		HibernateTransactionManager txManager = new HibernateTransactionManager(sessionFactory);
+		return txManager;
 	}
 
 	@Bean

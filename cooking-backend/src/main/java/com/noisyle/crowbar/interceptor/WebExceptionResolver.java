@@ -1,4 +1,4 @@
-package com.noisyle.crowbar.core.interceptor;
+package com.noisyle.crowbar.interceptor;
 
 import java.util.HashMap;
 import java.util.Locale;

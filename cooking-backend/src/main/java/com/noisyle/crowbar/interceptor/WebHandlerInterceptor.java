@@ -1,4 +1,4 @@
-package com.noisyle.crowbar.core.interceptor;
+package com.noisyle.crowbar.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

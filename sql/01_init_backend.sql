@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS `tp_new_user` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 INSERT INTO `tp_new_user` (`id`, `loginname`, `username`, `password`, `phone`, `email`, `role`, `avatarId`) VALUES
-(1, 'admin1', '管理员1', 'E10ADC3949BA59ABBE56E057F20F883E', '123', 'admin1@cooking.com', 'admin', NULL),
-(2, 'admin2', '管理员2', 'E10ADC3949BA59ABBE56E057F20F883E', '123', 'admin2@cooking.com', 'admin', NULL);
+(1, 'admin1', '管理员1', 'E10ADC3949BA59ABBE56E057F20F883E', '123', 'admin1@cooking.com', 'ADMIN', NULL),
+(2, 'admin2', '管理员2', 'E10ADC3949BA59ABBE56E057F20F883E', '123', 'admin2@cooking.com', 'ADMIN', NULL);
 

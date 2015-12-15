@@ -1,4 +1,4 @@
-package com.noisyle.crowbar.core.auth;
+package com.noisyle.crowbar.auth;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.noisyle.crowbar.constant.AdminConstant;
 import com.noisyle.crowbar.core.base.IUser;
-import com.noisyle.crowbar.service.LoginService;
+import com.noisyle.crowbar.service.UserService;
 
 public class RememberMeAuthenticationFilter extends FormAuthenticationFilter {
 
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
 	/**
 	 * 这个方法决定了是否能让用户登录
@@ -39,9 +39,9 @@ public class RememberMeAuthenticationFilter extends FormAuthenticationFilter {
 				String id = subject.getPrincipal().toString();
 
 				// 在这个方法里面做初始化用户上下文的事情，比如通过查询数据库来设置session值
-		        IUser user = loginService.getUserById(Long.valueOf(id));
+		        IUser user = userService.get(Long.valueOf(id));
 		        if(user != null) {
-		        	loginService.initUserContext(user);
+		        	userService.initUserContext(user);
 		        }else{
 		        	return false;
 		        }

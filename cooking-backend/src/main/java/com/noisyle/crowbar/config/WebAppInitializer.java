@@ -38,7 +38,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] { shiroFilter(), xssFilter(), characterEncodingFilter(), hiddenHttpMethodFilter(), openSessionInViewFilter() };
+		return new Filter[] { openSessionInViewFilter(), shiroFilter(), xssFilter(), characterEncodingFilter(), hiddenHttpMethodFilter() };
+	}
+	
+	private Filter openSessionInViewFilter() {
+		OpenSessionInViewFilter filter = new OpenSessionInViewFilter();
+		return filter;
 	}
 
 	private Filter shiroFilter() {
@@ -55,11 +60,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
 		filter.setEncoding("UTF-8");
 		filter.setForceEncoding(true);
-		return filter;
-	}
-	
-	private Filter openSessionInViewFilter() {
-		OpenSessionInViewFilter filter = new OpenSessionInViewFilter();
 		return filter;
 	}
 

@@ -169,6 +169,7 @@
                         <li>
                             <a href="${ctx}/admin/userList"><i class="fa fa-users fa-fw"></i> 用户信息管理</a>
                         </li>
+                        <!--
                         <li>
                             <a href="${ctx}/admin/categoryList"><i class="fa fa-th-list fa-fw"></i> 栏目管理</a>
                         </li>
@@ -178,6 +179,7 @@
                         <li>
                             <a href="${ctx}/admin/autoTaskList"><i class="fa fa-tasks fa-fw"></i> 自动任务管理</a>
                         </li>
+                        -->
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

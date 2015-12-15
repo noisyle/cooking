@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.noisyle.crowbar.auth.MongoDBUserRealm;
 import com.noisyle.crowbar.constant.AdminConstant;
-import com.noisyle.crowbar.core.auth.MongoDBUserRealm;
 import com.noisyle.crowbar.core.base.BaseController;
 import com.noisyle.crowbar.core.datatables.IFormatter;
 import com.noisyle.crowbar.core.datatables.PageParam;
@@ -27,13 +27,13 @@ import com.noisyle.crowbar.core.exception.GeneralException;
 import com.noisyle.crowbar.core.util.CryptoUtils;
 import com.noisyle.crowbar.core.vo.ResponseData;
 import com.noisyle.crowbar.model.User;
-import com.noisyle.crowbar.repository.UserRepository;
+import com.noisyle.crowbar.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController extends BaseController {
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -83,7 +83,7 @@ public class AdminController extends BaseController {
 				|| "".equals(pass2.trim())) {
 			throw new GeneralException("修改密码失败，参数不正确");
 		}
-		User user = userRepository.get(getUserContext().getUser().getId());
+		User user = userService.get(getUserContext().getUser().getId());
 		if (user == null) {
 			throw new GeneralException("修改密码失败，用户不存在");
 		}
@@ -94,7 +94,7 @@ public class AdminController extends BaseController {
 			throw new GeneralException("修改密码失败，两次新密码必须相同");
 		}
 		user.setPassword(pass1);
-		userRepository.save(user);
+		userService.save(user);
 		SecurityUtils.getSubject().getSession().removeAttribute(AdminConstant.SESSION_KEY_USER_CONTEXT);
 		SecurityUtils.getSubject().logout();
 		return ResponseData.buildSuccessResponse(null, "密码修改成功，请重新登陆");
@@ -115,7 +115,7 @@ public class AdminController extends BaseController {
 				return AdminConstant.Role.get((String) value).getText();
 			}
 		});
-		return userRepository.getFormatedPage(pageParam);
+		return userService.getFormatedPage(pageParam);
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
@@ -126,7 +126,7 @@ public class AdminController extends BaseController {
 
 	@RequestMapping(value = "/viewUser", method = RequestMethod.GET)
 	public String viewUser(Model model, @RequestParam Long id) {
-		model.addAttribute("user", userRepository.get(id));
+		model.addAttribute("user", userService.get(id));
 		model.addAttribute("json_role", AdminConstant.Role.getJSONString(0));
 		return "admin/user/view";
 	}
@@ -144,7 +144,7 @@ public class AdminController extends BaseController {
 				}
 			}
 		}
-		userRepository.save(user);
+		userService.save(user);
 		return ResponseData.buildSuccessResponse(user, "保存成功");
 	}
 
@@ -174,7 +174,7 @@ public class AdminController extends BaseController {
 	@RequestMapping(value = "/delUser", method = RequestMethod.POST)
 	@ResponseBody
 	public Object delUser(User user) {
-		userRepository.delete(user.getId());
+		userService.delete(user.getId());
 		return ResponseData.buildSuccessResponse(user.getId(), "删除成功");
 	}
 

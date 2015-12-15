@@ -21,9 +21,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.noisyle.crowbar.core.interceptor.WebExceptionResolver;
-import com.noisyle.crowbar.core.interceptor.WebHandlerInterceptor;
 import com.noisyle.crowbar.core.util.CookieUtils;
+import com.noisyle.crowbar.interceptor.WebExceptionResolver;
+import com.noisyle.crowbar.interceptor.WebHandlerInterceptor;
 
 @Configuration
 @EnableWebMvc
