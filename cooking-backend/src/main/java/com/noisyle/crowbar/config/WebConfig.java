@@ -1,17 +1,20 @@
 package com.noisyle.crowbar.config;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -21,12 +24,12 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.noisyle.crowbar.core.hibernate.HibernateAwareObjectMapper;
 import com.noisyle.crowbar.core.util.CookieUtils;
 import com.noisyle.crowbar.interceptor.WebExceptionResolver;
 import com.noisyle.crowbar.interceptor.WebHandlerInterceptor;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = "com.noisyle.crowbar.controller")
 public class WebConfig extends WebMvcConfigurationSupport {
 
@@ -54,6 +57,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(Jackson2Converter());
 	}
 
 	@Bean
@@ -92,7 +100,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	public WebHandlerInterceptor webHandlerInterceptor() {
 		return new WebHandlerInterceptor();
 	}
-	
+
 	@Bean
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
@@ -101,6 +109,19 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	@Bean
 	public WebExceptionResolver webExceptionResolver() {
 		return new WebExceptionResolver();
+	}
+
+	@Bean
+	@DependsOn({ "Jackson2Mapper" })
+	public MappingJackson2HttpMessageConverter Jackson2Converter() {
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setObjectMapper(Jackson2Mapper());
+		return converter;
+	}
+
+	@Bean
+	public HibernateAwareObjectMapper Jackson2Mapper() {
+		return new HibernateAwareObjectMapper();
 	}
 
 	@Override

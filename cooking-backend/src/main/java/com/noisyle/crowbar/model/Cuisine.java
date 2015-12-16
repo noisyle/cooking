@@ -20,6 +20,7 @@ public class Cuisine extends BaseModel {
 	private Double vprice;
 	private Double oprice;
 	private String token;
+	private String keyword;
 	private Double discount;
 	private Long salecount;
 	private Long time;
@@ -80,6 +81,12 @@ public class Cuisine extends BaseModel {
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	public Double getDiscount() {
 		return discount;

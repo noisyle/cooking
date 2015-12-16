@@ -5,7 +5,7 @@
 <div class="container-fluid">
 	<div class="row">
 	    <div class="col-lg-12">
-	        <h1 class="page-header">文章管理</h1>
+	        <h1 class="page-header">菜品信息管理</h1>
 	    </div><!-- /.col-lg-12 -->
 	</div><!-- /.row -->
 	<div class="row">
@@ -13,20 +13,20 @@
 	        <div class="panel panel-default">
 	            <div class="panel-heading">
 			        <div class="btn-group btn-group-sm pull-right" role="group" aria-label="...">
-			          <button type="button" class="btn btn-default" id="btnAdd">新增文章</button>
+			          <button type="button" class="btn btn-default" id="btnAdd">新增菜品</button>
 			          <button type="button" class="btn btn-default" id="btnReload">刷新列表</button>
 			        </div>
-			        <div class="panel-title">文章列表</div>
+			        <div class="panel-title">菜品列表</div>
 	            </div><!-- /.panel-heading -->
 	            <div class="panel-body">
 		            <table id="table" class="table table-hover table-striped table-bordered table-condensed" cellspacing="0" width="100%">
 		              <thead>
 		                <tr>
-		                  <th>标题</th>
-		                  <th>副标题</th>
-		                  <th>作者</th>
-		                  <th>栏目</th>
-		                  <th>发布时间</th>
+		                  <th>名称</th>
+		                  <th>介绍</th>
+		                  <th>关键字</th>
+		                  <th>类型</th>
+		                  <th>添加时间</th>
 		                  <th></th>
 		                </tr>
 		              </thead>
@@ -42,15 +42,15 @@ var table;
 $(function() {
 	table = $('#table').DataTable({
 		ajax : {
-			url: '${ctx}/admin/articleList'
+			url: '${ctx}/admin/cuisineList'
 		},
 		serverSide: true,
 		columns : [
-			{data : "title"},
-			{data : "subtitle"},
-			{data : "author.username"},
-			{data : "category.categoryName"},
-			{data : "publishtime", type: "date"},
+			{data : "name"},
+			{data : "intro"},
+			{data : "keyword"},
+			{data : "catid"},
+			{data : "time", type: "date"},
 			{data : "id"}
 		],
         columnDefs: [{
@@ -70,7 +70,7 @@ $(function() {
 	});
 	
 	$("#btnAdd").on("click", function(){
-		window.location.href="${ctx}/admin/addArticle";
+		window.location.href="${ctx}/admin/addCuisine";
 	});
 	
 	$("#btnReload").on("click", function(){
@@ -80,12 +80,12 @@ $(function() {
 });
 
 function view(id){
-	window.location.href="${ctx}/admin/viewArticle?id="+id;
+	window.location.href="${ctx}/admin/viewCuisine?id="+id;
 }
 
 function del(obj){
 	$.ajax({
-		url:"${ctx}/admin/delArticle",
+		url:"${ctx}/admin/delCuisine",
 		method:"post",
 		data:$(obj).data(),
 		dataType:"json",
