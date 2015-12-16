@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><div style="margin-top:-4px;width:150px;"><jsp:include page="/WEB-INF/view/admin/common/logo.jsp"></jsp:include></div></a>
+                <a class="navbar-brand" href="#">XXX管理系统</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -167,7 +167,34 @@
                     </ul>
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="${ctx}/admin/userList"><i class="fa fa-users fa-fw"></i> 用户信息管理</a>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="${ctx}/admin/userList"><i class="fa fa-users fa-fw"></i> 用户信息管理</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 菜品信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="${ctx}/admin/cuisineCatList"><i class="fa fa-users fa-fw"></i> 菜品分类管理</a>
+                                </li>
+                                <li>
+                                    <a href="${ctx}/admin/cuisineList"><i class="fa fa-users fa-fw"></i> 菜品信息管理</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 厨师信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="${ctx}/admin/chiefCatList"><i class="fa fa-users fa-fw"></i> 厨师分类管理</a>
+                                </li>
+                                <li>
+                                    <a href="${ctx}/admin/chiefList"><i class="fa fa-users fa-fw"></i> 厨师信息管理</a>
+                                </li>
+                            </ul>
                         </li>
                         <!--
                         <li>
@@ -199,10 +226,8 @@
                                             <a href="#">Third Level Item</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                     </ul>
                 </div>
