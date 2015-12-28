@@ -8,6 +8,7 @@
 	<modules>
 		<module>cooking-core</module>
 		<module>cooking-backend</module>
+		<module>cooking-frontend</module>
 	</modules>
 
 	<properties>
