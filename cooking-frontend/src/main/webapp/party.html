@@ -1,0 +1,40 @@
+<div class="container content">
+	<div class="fruit">
+		<h3>Party</h3>
+	</div>
+	<div class="product-filter">
+		<div class="sort">
+			<b>排序:</b> <select onchange="location = this.value;">
+				<option value="#" selected="selected">默认</option>
+				<option value="#">Price (Low &gt; High)</option>
+				<option value="#">Price (High &gt; Low)</option>
+				<option value="#">Rating (Highest)</option>
+				<option value="#">Rating (Lowest)</option>
+			</select>
+		</div>
+		<div class="limit">
+			<b>每页显示:</b> <select>
+				<option value="#" selected="selected">10</option>
+				<option value="#">20</option>
+				<option value="#">50</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12" ng-repeat="item in items">
+			<div class="content_box row">
+				<img ng-src="{{item.img}}" class="img-responsive col-xs-4" alt="">
+				<div class="content_box-grid col-xs-8">
+					<p class="content_text" ng-bind="item.name"></p>
+					<p class="content_text" ng-bind="item.text"></p>
+					<div class="col-xs-12 clearfix">
+						<div class="btn1 pull-right" ng-click="order()">立即预约</div>
+						<div class="price pull-right">
+							<span class="actual" ng-bind="item.price|currency:'￥'"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

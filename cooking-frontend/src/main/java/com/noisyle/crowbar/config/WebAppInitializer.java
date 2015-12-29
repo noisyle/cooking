@@ -6,7 +6,6 @@ import javax.servlet.ServletRegistration;
 
 import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -38,17 +37,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] { openSessionInViewFilter(), shiroFilter(), xssFilter(), characterEncodingFilter(), hiddenHttpMethodFilter() };
+		return new Filter[] { openSessionInViewFilter(), xssFilter(), characterEncodingFilter(), hiddenHttpMethodFilter() };
 	}
 	
 	private Filter openSessionInViewFilter() {
 		OpenSessionInViewFilter filter = new OpenSessionInViewFilter();
-		return filter;
-	}
-
-	private Filter shiroFilter() {
-		DelegatingFilterProxy filter = new DelegatingFilterProxy("shiroFilter");
-		filter.setTargetFilterLifecycle(true);
 		return filter;
 	}
 

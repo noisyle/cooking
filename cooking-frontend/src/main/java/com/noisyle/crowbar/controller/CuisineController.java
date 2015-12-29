@@ -14,15 +14,13 @@ import com.noisyle.crowbar.core.datatables.PageParam;
 import com.noisyle.crowbar.service.CuisineService;
 
 @Controller
-@RequestMapping("/admin")
 public class CuisineController extends BaseController {
 	@Autowired
 	private CuisineService cuisineService;
 
-	// 菜品分类管理
-	@RequestMapping(value = "/cuisineCatList", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String cuisineCatList() {
-		return "admin/cuisineCat/list";
+		return "cooking/index";
 	}
 
 	@RequestMapping(value = "/cuisineCats", method = RequestMethod.GET)
@@ -35,12 +33,6 @@ public class CuisineController extends BaseController {
 	@ResponseBody
 	public Object queryCuisineCatList(@RequestParam Long id) {
 		return cuisineService.findCuisineCatById(id);
-	}
-
-	// 菜品信息管理
-	@RequestMapping(value = "/cuisineList", method = RequestMethod.GET)
-	public String cuisineList() {
-		return "admin/cuisine/list";
 	}
 
 	@RequestMapping(value = "/cuisineList", method = RequestMethod.POST)
