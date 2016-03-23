@@ -20,7 +20,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { AppConfig.class };
+		return new Class[] { AppConfig.class, CaptchaConfig.class };
 	}
 
 	@Override

@@ -5,12 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
-import com.noisyle.crowbar.constant.AdminConstant;
+import com.noisyle.crowbar.constant.SiteConstant;
 
 public class WebHandlerInterceptor implements HandlerInterceptor {
 
@@ -32,17 +31,17 @@ public class WebHandlerInterceptor implements HandlerInterceptor {
 		}
 		
 		//BaseController子类，尝试注入UserContext
-		if(object instanceof HandlerMethod){
+//		if(object instanceof HandlerMethod){
 //			if(((HandlerMethod) object).getBean() instanceof BaseController){
 //				BaseController controller = (BaseController) ((HandlerMethod) object).getBean();
-//				UserContext userContext = (UserContext) SecurityUtils.getSubject().getSession().getAttribute(AdminConstant.SESSION_KEY_USER_CONTEXT);
+//				UserContext userContext = (UserContext)request.getSession().getAttribute(SiteConstant.SESSION_KEY_USER_CONTEXT);;
 //				if(userContext!=null){
 //					controller.setUserContext(userContext);
 //				}
 //			}
-		}
+//		}
 		
-		request.setAttribute(AdminConstant.SESSION_KEY_CONTEXT_ROOT, contextPath);
+		request.setAttribute(SiteConstant.SESSION_KEY_CONTEXT_ROOT, contextPath);
 		
 		logger.debug("请求url:{}\nmethod:{}\nparams:{}\nrefer:{}", url, request.getMethod(), request.getParameterMap(), refer);
 		return true;

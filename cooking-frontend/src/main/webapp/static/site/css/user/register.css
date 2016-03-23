@@ -1,0 +1,31 @@
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 10px auto;
+}
+.form-signin>input,
+.form-signin>button,
+.form-signin>.input-group,
+.form-signin>.form-signin-heading {
+  margin-bottom: 15px;
+  border-radius: 0;
+}
+.form-signin>.input-group>input {
+  border-radius: 0;
+}
+.form-signin>.input-group>span {
+  border-radius: 0;
+  padding: 0;
+}
+.form-signin>.input-group img {
+  cursor: pointer;
+}
+.form-signin a {
+  font-size: 14px;
+  color: #803e26;
+}
+.form-signin>.btn-primary,
+.form-signin>.btn-primary:active {
+  background-color: #803e26;
+  border-color: #803e26;
+}

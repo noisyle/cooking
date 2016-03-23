@@ -1,0 +1,75 @@
+.filterUL {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #CDB38B;
+}
+.filterUL li {
+  margin-top: 10px;
+}
+.filterUL .type {
+  font-size: 14px;
+  width: 60px;
+  padding-top: 2px;
+}
+.filterUL .choice {
+  margin-left: 60px;
+}
+.filterUL .choice>a {
+  padding: 0 5px;
+  background-color: #fff;
+  border: 0;
+  border-radius: 0;
+}
+.filterUL .choice>a:hover,
+.filterUL .choice>a.active {
+  color: #fff;
+  background-color: #803e26;
+}
+.item {
+  border-bottom: 1px solid #CDB38B;
+  color: #333;
+  padding: 0 20px;
+}
+.item:hover {
+  background-color: #f8f8f8;
+}
+.item>div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.item-title {
+  font-size: 20px;
+}
+.item-action {
+  text-align: right;
+  padding: 20px;
+}
+.item-price {
+  color: #803e26;
+  font-size: 28px;
+}
+.item-action .btn {
+  font-size: 18px;
+  border-color: #CDB38B;
+  color: #803e26;
+  border-radius: 0;
+  padding: 3px 15px;
+}
+.item .btn:hover, .item .btn:focus {
+  color: #fff;
+  background-color: #803e26;
+}
+.pagination>li>a, .pagination>li>span {
+    color: #803e26;
+    border: 1px solid #CDB38B;
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+    color: #803e26;
+    background-color: #eee;
+    border-color: #ddd;
+    border: 1px solid #CDB38B;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #803e26;
+    border-color: #803e26;
+}
